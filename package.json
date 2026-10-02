@@ -1,0 +1,15 @@
+{
+  "name": "exploitation-observatory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Exploitation gap clock: median days from CVE publication to first reported exploitation (VulnCheck KEV)",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test",
+    "start": "node scripts/serve.mjs",
+    "refresh": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/with-vulncheck-token.ps1 -Script scripts/refresh-vulncheck.mjs",
+    "set-token": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/set-vulncheck-token.ps1"
+  }
+}
