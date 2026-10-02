@@ -62,6 +62,8 @@ for(const e of kev){
     const earliest=(a,b)=>!a?b:!b?a:a<b?a:b;
     byCve.set(cve,{cve,vulncheck:earliest(prev?.vulncheck,vc),cisa:earliest(prev?.cisa,cisa),
       firstReport:earliest(prev?.firstReport,reports[0]??null),reports:(prev?.reports??0)+reports.length,
+      vendor:prev?.vendor??(typeof e.vendorProject==="string"?e.vendorProject.slice(0,80):null),
+      product:prev?.product??(typeof e.product==="string"?e.product.slice(0,80):null),
       ransomware:prev?.ransomware==="Known"||e.knownRansomwareCampaignUse==="Known"?"Known":"Unknown"});
   }
 }

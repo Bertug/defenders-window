@@ -32,3 +32,12 @@ test("page credits VulnCheck, shows the caveat and has no upload or secrets",()=
   assert.match(html,/Recent years look faster/);
   assert.doesNotMatch(html,/type="file"|vulncheck_[0-9a-f]{20}|Bearer|X-Amz|Signature=/);
 });
+
+test("yearly details add up and examples belong to their year",()=>{
+  for(const y of yearlyGap(data.records,data.meta.asOf)){
+    assert.equal(y.buckets.reduce((s,b)=>s+b.count,0),y.n);
+    assert(y.q1<=y.median&&y.median<=y.q3);
+    assert(y.examples.length>0&&y.examples.length<=5);
+    assert(y.examples.every(e=>e.published.startsWith(String(y.year))));
+  }
+});
