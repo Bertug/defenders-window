@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Exploitation Gap Clock</title>
-<meta name="description" content="Median days between CVE publication and first reported exploitation, by year. Data: VulnCheck KEV.">
-<meta property="og:title" content="Exploitation Gap Clock">
-<meta property="og:description" content="The window between disclosure and exploitation, measured every year since 2021.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='5' fill='%23ff3b30'/%3E%3C/svg%3E">
+<title>Defender's Window</title>
+<meta name="description" content="How long defenders have between a vulnerability's disclosure and its first reported exploitation in the wild, by year. Data: VulnCheck KEV.">
+<meta property="og:title" content="Defender's Window">
+<meta property="og:description" content="The time defenders get between disclosure and exploitation, measured every year since 2021.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='2' width='12' height='12' fill='none' stroke='%23ff3b30' stroke-width='2'/%3E%3Crect x='7' y='2' width='2' height='12' fill='%23ff3b30'/%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#0a0a0b;--panel:#111113;--line:#1f1f23;--line-strong:#2e2e34;
@@ -24,14 +24,13 @@ a{color:var(--text);text-decoration:underline;text-decoration-color:var(--faint)
 a:hover{text-decoration-color:var(--red)}
 .top{display:flex;justify-content:space-between;align-items:center;font:12px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:56px}
 .live{display:flex;align-items:center;gap:10px;color:var(--text)}
-.live i{width:8px;height:8px;border-radius:50%;background:var(--red);box-shadow:0 0 0 0 rgba(255,59,48,.6);animation:pulse 2s infinite}
-@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(255,59,48,0)}100%{box-shadow:0 0 0 0 rgba(255,59,48,0)}}
-@media (prefers-reduced-motion:reduce){.live i{animation:none}}
+.live i{width:12px;height:12px;border:2px solid var(--red);background:linear-gradient(90deg,transparent 4px,var(--red) 4px,var(--red) 6px,transparent 6px)}
+h1{font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:600;letter-spacing:-.02em;margin:22px 0 0;max-width:620px}
+.sub{color:var(--muted);margin:10px 0 0;max-width:560px}
 .hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:40px}
 .label{font:12px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
 .clock{font:700 clamp(88px,15vw,168px)/.9 var(--mono);letter-spacing:-.06em;color:var(--red);margin:14px 0 0}
 .clock small{font-size:.3em;letter-spacing:0;color:var(--text);margin-left:.3em}
-h1{font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:600;letter-spacing:-.02em;margin:22px 0 0;max-width:620px}
 .side{display:grid;gap:22px;min-width:220px;padding-bottom:6px}
 .side strong{display:block;font:600 34px/1.1 var(--mono);letter-spacing:-.03em;margin-top:6px}
 .side span.note{font:12px var(--mono);color:var(--faint)}
@@ -60,20 +59,21 @@ footer a{color:var(--muted)}
 </head>
 <body>
 <main>
-<div class="top"><span class="live"><i></i>Exploitation Gap Clock</span><span>Updated 3 Oct 2026</span></div>
+<div class="top"><span class="live"><i></i>Defender's Window</span><span>Updated 3 Oct 2026</span></div>
 <header class="hero">
   <div>
-    <div class="label">2026 so far &middot; median days to exploitation</div>
+    <div class="label">2026 so far &middot; median window before exploitation</div>
     <div class="clock">1<small>day</small></div>
-    <h1>The window between disclosure and exploitation is closing.</h1>
+    <h1>The defender's window is closing.</h1>
+    <p class="sub">How long defenders get between a vulnerability's public disclosure and its first reported exploitation in the wild.</p>
   </div>
   <div class="side">
-    <div><span class="label">2022 median</span><strong>322 days</strong><span class="note">n=467</span></div>
-    <div><span class="label">2026: within 7 days</span><strong>61%</strong><span class="note">27% in 2022</span></div>
+    <div><span class="label">2022 median window</span><strong>322 days</strong><span class="note">n=467</span></div>
+    <div><span class="label">2026: exploited within 7 days</span><strong>61%</strong><span class="note">27% in 2022</span></div>
   </div>
 </header>
 <section>
-  <h2><span>Median gap by CVE publication year</span></h2>
+  <h2><span>Median window by CVE publication year</span></h2>
   <div class="chart-wrap"><svg viewBox="0 0 960 360" role="img" aria-labelledby="chart-title"><title id="chart-title">Median days from CVE publication to first reported exploitation, by year</title><line class="axis" x1="56" x2="944" y1="296" y2="296"/><text class="tick" x="44" y="300" text-anchor="end">0</text><line class="grid" x1="56" x2="944" y1="244.8" y2="244.8"/><text class="tick" x="44" y="248.8" text-anchor="end">70</text><line class="grid" x1="56" x2="944" y1="193.6" y2="193.6"/><text class="tick" x="44" y="197.6" text-anchor="end">140</text><line class="grid" x1="56" x2="944" y1="142.4" y2="142.4"/><text class="tick" x="44" y="146.4" text-anchor="end">210</text><line class="grid" x1="56" x2="944" y1="91.19999999999999" y2="91.19999999999999"/><text class="tick" x="44" y="95.19999999999999" text-anchor="end">280</text><line class="grid" x1="56" x2="944" y1="40" y2="40"/><text class="tick" x="44" y="44" text-anchor="end">350</text><g><title>2021: median 193.5 days (n=480)</title><rect class="bar" x="98.92" y="154.46857142857144" width="62.16" height="141.53142857142856"/><text class="value" x="130" y="142.46857142857144" text-anchor="middle">193.5</text></g><text class="year" x="130" y="322" text-anchor="middle">2021</text><text class="tick" x="130" y="340" text-anchor="middle">n=480</text><g><title>2022: median 322 days (n=467)</title><rect class="bar" x="246.92000000000002" y="60.47999999999999" width="62.16" height="235.52"/><text class="value" x="278" y="48.47999999999999" text-anchor="middle">322</text></g><text class="year" x="278" y="322" text-anchor="middle">2022</text><text class="tick" x="278" y="340" text-anchor="middle">n=467</text><g><title>2023: median 94 days (n=554)</title><rect class="bar" x="394.92" y="227.24571428571429" width="62.16" height="68.75428571428571"/><text class="value" x="426" y="215.24571428571429" text-anchor="middle">94</text></g><text class="year" x="426" y="322" text-anchor="middle">2023</text><text class="tick" x="426" y="340" text-anchor="middle">n=554</text><g><title>2024: median 4 days (n=709)</title><rect class="bar" x="542.92" y="293.0742857142857" width="62.16" height="2.925714285714321"/><text class="value" x="574" y="281.0742857142857" text-anchor="middle">4</text></g><text class="year" x="574" y="322" text-anchor="middle">2024</text><text class="tick" x="574" y="340" text-anchor="middle">n=709</text><g><title>2025: median 8 days (n=677)</title><rect class="bar" x="690.92" y="290.1485714285714" width="62.16" height="5.851428571428585"/><text class="value" x="722" y="278.1485714285714" text-anchor="middle">8</text></g><text class="year" x="722" y="322" text-anchor="middle">2025</text><text class="tick" x="722" y="340" text-anchor="middle">n=677</text><g><title>2026: median 1 days (n=557)</title><rect class="bar partial" x="838.92" y="294" width="62.16" height="2"/><text class="value" x="870" y="282" text-anchor="middle">1</text></g><text class="year" x="870" y="322" text-anchor="middle">2026*</text><text class="tick" x="870" y="340" text-anchor="middle">n=557</text><text class="tick" x="10" y="16">DAYS</text></svg></div>
 </section>
 <section>
@@ -81,8 +81,8 @@ footer a{color:var(--muted)}
 </section>
 <section>
   <h2><span>By year</span></h2>
-  <div class="table-wrap"><table><thead><tr><th>Year</th><th>Exploited CVEs</th><th>Median days</th><th>Within 7 days</th><th>On/before disclosure</th></tr></thead><tbody><tr><td>2021</td><td>480</td><td class="hl">193.5</td><td>29%</td><td>26%</td></tr><tr><td>2022</td><td>467</td><td class="hl">322</td><td>27%</td><td>26%</td></tr><tr><td>2023</td><td>554</td><td class="hl">94</td><td>42%</td><td>35%</td></tr><tr><td>2024</td><td>709</td><td class="hl">4</td><td>52%</td><td>46%</td></tr><tr><td>2025</td><td>677</td><td class="hl">8</td><td>50%</td><td>45%</td></tr><tr><td>2026*</td><td>557</td><td class="hl">1</td><td>61%</td><td>48%</td></tr></tbody></table></div>
-  <p class="notes">* Partial year, through 3 Oct 2026. Gap = first exploitation report recorded by VulnCheck KEV minus CVE.org publication date. Reported dates can trail actual attacks. VulnCheck KEV coverage grew after its 2023 launch. These figures do not show what causes any change.</p>
+  <div class="table-wrap"><table><thead><tr><th>Year</th><th>Exploited CVEs</th><th>Median window (days)</th><th>Exploited within 7 days</th><th>No window: exploited on/before disclosure</th></tr></thead><tbody><tr><td>2021</td><td>480</td><td class="hl">193.5</td><td>29%</td><td>26%</td></tr><tr><td>2022</td><td>467</td><td class="hl">322</td><td>27%</td><td>26%</td></tr><tr><td>2023</td><td>554</td><td class="hl">94</td><td>42%</td><td>35%</td></tr><tr><td>2024</td><td>709</td><td class="hl">4</td><td>52%</td><td>46%</td></tr><tr><td>2025</td><td>677</td><td class="hl">8</td><td>50%</td><td>45%</td></tr><tr><td>2026*</td><td>557</td><td class="hl">1</td><td>61%</td><td>48%</td></tr></tbody></table></div>
+  <p class="notes">* Partial year, through 3 Oct 2026. Window = first exploitation report recorded by VulnCheck KEV minus CVE.org publication date. Reported dates can trail actual attacks. VulnCheck KEV coverage grew after its 2023 launch. These figures do not show what causes any change.</p>
 </section>
 <footer><span>Data: <a href="https://vulncheck.com/kev">VulnCheck Known Exploited Vulnerabilities (VulnCheck KEV)</a> &middot; <a href="https://www.cve.org/">CVE.org</a></span><span>Bertug Berkay Yemen</span></footer>
 </main>

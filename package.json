@@ -1,9 +1,9 @@
 {
-  "name": "exploitation-observatory",
+  "name": "defenders-window",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Exploitation gap clock: median days from CVE publication to first reported exploitation (VulnCheck KEV)",
+  "description": "Defender's Window: median days between CVE disclosure and first reported exploitation (VulnCheck KEV)",
   "engines": { "node": ">=22" },
   "scripts": {
     "build": "node scripts/build.mjs",

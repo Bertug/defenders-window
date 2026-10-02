@@ -20,7 +20,7 @@ test("static preview serves the index, nested data and missing routes",{timeout:
     const index=await fetch(url+"/");
     assert.equal(index.status,200);
     assert.match(index.headers.get("content-type"),/text\/html/);
-    assert.match(await index.text(),/Exploitation Gap Clock/);
+    assert.match(await index.text(),/Defender's Window/);
     assert.equal((await fetch(url+"/data/vulncheck-kev.json")).status,200);
     assert.equal((await fetch(url+"/missing.html")).status,404);
   }finally{child.kill();}
