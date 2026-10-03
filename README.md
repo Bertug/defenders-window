@@ -11,14 +11,4 @@ Recent years look faster than they are: older CVEs have had more time to collect
 
 ## How it updates
 
-A GitHub Actions workflow runs daily. It downloads VulnCheck KEV using the `VULNCHECK_API_TOKEN` repository secret, rebuilds `index.html`, commits the refreshed data and deploys to GitHub Pages. The website itself never contains or needs the token.
-
-## Local use
-
-```
-npm run set-token   # stores the token encrypted for your Windows user (DPAPI)
-npm run refresh     # downloads data using the stored token
-npm run build       # writes index.html
-npm test
-npm start           # preview at http://127.0.0.1:8875
-```
+The site updates itself once a day. A scheduled GitHub Actions job pulls the latest VulnCheck KEV data, matches it with CVE.org publication dates, rebuilds the page and publishes it to GitHub Pages.
