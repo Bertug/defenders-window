@@ -2,7 +2,7 @@
 
 How long defenders get between a vulnerability's public disclosure and its first reported exploitation in the wild: the median, by CVE publication year since 2021.
 
-Live site: https://bertug.github.io/defenders-window/
+Live site: https://defenderswindow.copperwyre.com/
 
 - **Exploitation dates:** [VulnCheck Known Exploited Vulnerabilities (VulnCheck KEV)](https://vulncheck.com/kev), Community edition. Public use requires attribution to VulnCheck KEV.
 - **Publication dates:** [CVE.org](https://github.com/CVEProject/cvelistV5) `cveMetadata.datePublished`.
