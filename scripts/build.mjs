@@ -76,11 +76,27 @@ export function renderPage(years,meta){
 <meta property="og:title" content="Defender's Window">
 <meta property="og:description" content="The time defenders get between disclosure and exploitation, measured every year since ${FIRST_YEAR}.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='2' y='2' width='12' height='12' fill='none' stroke='%23ff3b30' stroke-width='2'/%3E%3Crect x='7' y='2' width='2' height='12' fill='%23ff3b30'/%3E%3C/svg%3E">
+<script>
+(()=>{
+  // Saved choice (shared with blog.copperwyre.com), then OS preference, then dark.
+  const s=document.cookie.match(/(?:^|; )cw-theme=(light|dark)/);
+  document.documentElement.setAttribute("data-theme",s?s[1]:matchMedia("(prefers-color-scheme: light)").matches?"light":"dark");
+})();
+</script>
 <style>
-:root{
+:root,html[data-theme="dark"]{
+  color-scheme:dark;
   --bg:#0a0a0b;--panel:#111113;--panel-2:#16161a;--line:#1f1f23;--line-strong:#2e2e34;
   --text:#ececee;--muted:#8b8b93;--faint:#5a5a62;
-  --red:#ff3b30;--red-soft:rgba(255,59,48,.12);--amber:#ffb020;
+  --red:#ff3b30;--red-soft:rgba(255,59,48,.12);--on-red:#0a0a0b;--amber:#ffb020;--hover:rgba(255,255,255,.03);
+}
+html[data-theme="light"]{
+  color-scheme:light;
+  --bg:#f7f4ef;--panel:#ffffff;--panel-2:#f0ece5;--line:#e2ded6;--line-strong:#b8b2a7;
+  --text:#242424;--muted:#5c5c5c;--faint:#6f6f6f;
+  --red:#c8261c;--red-soft:rgba(200,38,28,.1);--on-red:#ffffff;--amber:#9a5b00;--hover:rgba(0,0,0,.04);
+}
+:root{
   --mono:"JetBrains Mono","SF Mono",Consolas,"Liberation Mono",Menlo,monospace;
   --sans:"Inter","Segoe UI",-apple-system,BlinkMacSystemFont,Roboto,sans-serif;
 }
@@ -93,6 +109,14 @@ a:hover{text-decoration-color:var(--red)}
 .top{display:flex;justify-content:space-between;align-items:center;font:12px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:56px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text)}
 .brand i{width:12px;height:12px;border:2px solid var(--red);background:linear-gradient(90deg,transparent 4px,var(--red) 4px,var(--red) 6px,transparent 6px)}
+.top-end{display:flex;align-items:center;gap:18px}
+.theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;color:var(--muted);background:none;border:1px solid var(--line-strong);cursor:pointer}
+.theme-toggle[hidden]{display:none}
+.theme-toggle:hover{color:var(--text);border-color:var(--muted)}
+.theme-toggle:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.theme-toggle svg{width:14px;height:14px}
+.theme-toggle .icon-moon,html[data-theme="light"] .theme-toggle .icon-sun{display:none}
+html[data-theme="light"] .theme-toggle .icon-moon{display:block}
 h1{font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:600;letter-spacing:-.02em;margin:22px 0 0;max-width:620px}
 .sub{color:var(--muted);margin:10px 0 0;max-width:560px}
 .hero{display:grid;grid-template-columns:1fr auto;gap:40px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:40px}
@@ -118,7 +142,7 @@ svg text{font-family:var(--mono);pointer-events:none}
 .value{fill:var(--text);font-size:17px;font-weight:600;transition:opacity .2s}.year{fill:var(--text);font-size:14px}
 .chart-wrap.hovering .col:not(.hover) .bar{opacity:.25}
 .chart-wrap.hovering .col:not(.hover) .value{opacity:.35}
-.col.hover .hit,.col:focus-visible .hit{fill:rgba(255,255,255,.03)}
+.col.hover .hit,.col:focus-visible .hit{fill:var(--hover)}
 .col.selected .year{fill:var(--red);font-weight:700}
 .col.selected .hit{fill:var(--red-soft)}
 .tip{position:absolute;pointer-events:none;background:var(--panel-2);border:1px solid var(--line-strong);padding:12px 14px;font:12px/1.6 var(--mono);color:var(--muted);min-width:210px;opacity:0;transform:translate(-50%,-100%) translateY(-8px);transition:opacity .15s;z-index:2;white-space:nowrap}
@@ -131,7 +155,7 @@ svg text{font-family:var(--mono);pointer-events:none}
 .year-tabs{display:flex;gap:4px;flex-wrap:wrap}
 .year-tabs button{font:12px var(--mono);background:none;border:1px solid var(--line-strong);color:var(--muted);padding:5px 10px;cursor:pointer}
 .year-tabs button:hover{color:var(--text);border-color:var(--muted)}
-.year-tabs button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:#0a0a0b}
+.year-tabs button[aria-pressed="true"]{background:var(--red);border-color:var(--red);color:var(--on-red)}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:20px 0}
 .stats div{background:var(--panel);padding:14px 16px}
 .stats strong{display:block;font:600 24px/1.2 var(--mono);margin-top:4px}
@@ -169,7 +193,7 @@ footer a{color:var(--muted)}
 </head>
 <body>
 <main>
-<div class="top"><span class="brand"><i></i>Defender's Window</span><span>Updated ${escape(fmtDate(meta.asOf))}</span></div>
+<div class="top"><span class="brand"><i></i>Defender's Window</span><span class="top-end"><span>Updated ${escape(fmtDate(meta.asOf))}</span><button class="theme-toggle" type="button" hidden><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></span></div>
 <header class="hero">
   <div>
     <div class="label">${latest.year}${latest.partial?" so far":""} &middot; median window before exploitation</div>
@@ -218,6 +242,21 @@ footer a{color:var(--muted)}
   const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
   const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   let selected=Y.length-1;
+
+  const root=document.documentElement,toggle=document.querySelector(".theme-toggle");
+  const label=()=>{const t=root.dataset.theme==="light"?"Switch to dark theme":"Switch to light theme";toggle.setAttribute("aria-label",t);toggle.title=t;};
+  label();toggle.hidden=false;
+  toggle.addEventListener("click",()=>{
+    const theme=root.dataset.theme==="light"?"dark":"light";
+    root.dataset.theme=theme;label();
+    // Shared across blog.copperwyre.com and defenderswindow.copperwyre.com.
+    const domain=location.hostname.endsWith("copperwyre.com")?";domain=.copperwyre.com":"";
+    document.cookie="cw-theme="+theme+";path=/;max-age=31536000;samesite=lax"+(location.protocol==="https:"?";secure":"")+domain;
+  });
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change",e=>{
+    if(/(?:^|; )cw-theme=/.test(document.cookie))return;
+    root.dataset.theme=e.matches?"light":"dark";label();
+  });
 
   function showTip(i){
     const y=Y[i],bar=cols[i].querySelector(".bar"),box=bar.getBoundingClientRect(),wrap=chart.getBoundingClientRect();

@@ -41,3 +41,12 @@ test("yearly details add up and examples belong to their year",()=>{
     assert(y.examples.every(e=>e.published.startsWith(String(y.year))));
   }
 });
+
+test("page has a light/dark toggle that sets the theme before first paint",()=>{
+  const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
+  assert.match(html,/class="theme-toggle"/);
+  assert.match(html,/html\[data-theme="light"\]\{/);
+  const init=html.indexOf("cw-theme"),style=html.indexOf("<style>");
+  assert(init>-1&&init<style,"theme init script must run before the stylesheet");
+  assert.doesNotMatch(html.slice(style,html.indexOf("</style>")),/color:#0a0a0b|rgba\(255,255,255,\.03\)\}/,"component rules must use theme variables");
+});
