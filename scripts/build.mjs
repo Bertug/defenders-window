@@ -187,6 +187,7 @@ tbody tr.selected td:first-child{color:var(--red);font-weight:700}
 .notes{font-size:13px;color:var(--faint);max-width:760px}
 footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:12px var(--mono);color:var(--faint)}
 footer a{color:var(--muted)}
+.footer-quote{margin:0;text-align:center;font:italic 11px/1.6 var(--mono);color:var(--muted)}
 @media(max-width:720px){main{padding:32px 18px}.top{margin-bottom:36px}.hero{grid-template-columns:1fr;gap:28px}.side{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.cols{grid-template-columns:1fr}.detail{padding:18px}}
 @media(prefers-reduced-motion:reduce){.bar{animation:none}.dist .fill{transition:none}}
 </style>
@@ -232,6 +233,7 @@ footer a{color:var(--muted)}
   <p class="notes">* Partial year, through ${escape(fmtDate(meta.asOf))}. Window = first exploitation report recorded by VulnCheck KEV minus CVE.org publication date. Reported dates can trail actual attacks. VulnCheck KEV coverage grew after its 2023 launch. These figures do not show what causes any change.</p>
 </section>
 <footer><span>Data: <a href="https://vulncheck.com/kev">VulnCheck Known Exploited Vulnerabilities (VulnCheck KEV)</a> &middot; <a href="https://www.cve.org/">CVE.org</a></span><span>Bertug Berkay Yemen</span></footer>
+<p class="footer-quote"><em>&ldquo;Men of the north, you stand at the precipice! Your kings have failed you, so now you turn to the gods!&rdquo;</em></p>
 </main>
 <script id="data" type="application/json">${data}</script>
 <script>

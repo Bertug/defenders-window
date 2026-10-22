@@ -48,6 +48,12 @@ test("page links back to the blog from the main navigation",()=>{
   assert.equal(html.match(/href="https:\/\/blog\.copperwyre\.com\/"/g)?.length,1);
 });
 
+test("page ends with the requested footer quote without attribution",()=>{
+  const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
+  assert.match(html,/<\/footer>\s*<p class="footer-quote"><em>&ldquo;Men of the north, you stand at the precipice! Your kings have failed you, so now you turn to the gods!&rdquo;<\/em><\/p>\s*<\/main>/);
+  assert.equal(html.match(/class="footer-quote"/g)?.length,1);
+});
+
 test("page has a light/dark toggle that sets the theme before first paint",()=>{
   const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
   assert.match(html,/class="theme-toggle"/);
