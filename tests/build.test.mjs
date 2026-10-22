@@ -42,9 +42,16 @@ test("yearly details add up and examples belong to their year",()=>{
   }
 });
 
+test("page links back to the blog from the main navigation",()=>{
+  const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
+  assert.match(html,/<nav class="top-end" aria-label="Main navigation"><a href="https:\/\/blog\.copperwyre\.com\/">Blog <span aria-hidden="true">&nearr;<\/span><\/a>/);
+  assert.equal(html.match(/href="https:\/\/blog\.copperwyre\.com\/"/g)?.length,1);
+});
+
 test("page has a light/dark toggle that sets the theme before first paint",()=>{
   const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
   assert.match(html,/class="theme-toggle"/);
+  assert.match(html,/\.theme-toggle svg\{width:14px;height:14px;min-width:0\}/);
   assert.match(html,/html\[data-theme="light"\]\{/);
   const init=html.indexOf("cw-theme"),style=html.indexOf("<style>");
   assert(init>-1&&init<style,"theme init script must run before the stylesheet");

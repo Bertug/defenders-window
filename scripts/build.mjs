@@ -106,15 +106,15 @@ body{margin:0;color:var(--text);font:15px/1.6 var(--sans);-webkit-font-smoothing
 main{max-width:1000px;margin:auto;padding:56px 24px 40px}
 a{color:var(--text);text-decoration:underline;text-decoration-color:var(--faint);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--red)}
-.top{display:flex;justify-content:space-between;align-items:center;font:12px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:56px}
+.top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font:12px var(--mono);color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:56px}
 .brand{display:flex;align-items:center;gap:10px;color:var(--text)}
 .brand i{width:12px;height:12px;border:2px solid var(--red);background:linear-gradient(90deg,transparent 4px,var(--red) 4px,var(--red) 6px,transparent 6px)}
 .top-end{display:flex;align-items:center;gap:18px}
 .theme-toggle{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;padding:0;color:var(--muted);background:none;border:1px solid var(--line-strong);cursor:pointer}
 .theme-toggle[hidden]{display:none}
 .theme-toggle:hover{color:var(--text);border-color:var(--muted)}
-.theme-toggle:focus-visible{outline:2px solid var(--red);outline-offset:3px}
-.theme-toggle svg{width:14px;height:14px}
+.top a:focus-visible,.theme-toggle:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.theme-toggle svg{width:14px;height:14px;min-width:0}
 .theme-toggle .icon-moon,html[data-theme="light"] .theme-toggle .icon-sun{display:none}
 html[data-theme="light"] .theme-toggle .icon-moon{display:block}
 h1{font-size:clamp(22px,3vw,30px);line-height:1.25;font-weight:600;letter-spacing:-.02em;margin:22px 0 0;max-width:620px}
@@ -193,7 +193,7 @@ footer a{color:var(--muted)}
 </head>
 <body>
 <main>
-<div class="top"><span class="brand"><i></i>Defender's Window</span><span class="top-end"><span>Updated ${escape(fmtDate(meta.asOf))}</span><button class="theme-toggle" type="button" hidden><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></span></div>
+<div class="top"><span class="brand"><i></i>Defender's Window</span><nav class="top-end" aria-label="Main navigation"><a href="https://blog.copperwyre.com/">Blog <span aria-hidden="true">&nearr;</span></a><span>Updated ${escape(fmtDate(meta.asOf))}</span><button class="theme-toggle" type="button" hidden><svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg><svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg></button></nav></div>
 <header class="hero">
   <div>
     <div class="label">${latest.year}${latest.partial?" so far":""} &middot; median window before exploitation</div>
