@@ -187,7 +187,7 @@ tbody tr.selected td:first-child{color:var(--red);font-weight:700}
 .notes{font-size:13px;color:var(--faint);max-width:760px}
 footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font:12px var(--mono);color:var(--faint)}
 footer a{color:var(--muted)}
-.footer-quote{margin:8px 0 0;text-align:right;font:italic 11px/1.6 var(--mono);color:var(--muted)}
+.footer-quote{margin:8px 0 0;text-align:center;font:italic 11px/1.6 var(--mono);color:var(--muted)}
 @media(max-width:720px){main{padding:32px 18px}.top{margin-bottom:36px}.hero{grid-template-columns:1fr;gap:28px}.side{grid-template-columns:1fr 1fr}.stats{grid-template-columns:1fr 1fr}.cols{grid-template-columns:1fr}.detail{padding:18px}}
 @media(prefers-reduced-motion:reduce){.bar{animation:none}.dist .fill{transition:none}}
 </style>

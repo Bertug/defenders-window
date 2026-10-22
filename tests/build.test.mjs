@@ -52,7 +52,7 @@ test("page ends with the requested footer quote without attribution",()=>{
   const html=renderPage(yearlyGap(data.records,data.meta.asOf),data.meta);
   assert.match(html,/<\/footer>\s*<p class="footer-quote"><em>&ldquo;Men of the north, you stand at the precipice! Your kings have failed you, so now you turn to the gods!&rdquo;<\/em><\/p>\s*<\/main>/);
   assert.equal(html.match(/class="footer-quote"/g)?.length,1);
-  assert.match(html,/\.footer-quote\{margin:8px 0 0;text-align:right;/);
+  assert.match(html,/\.footer-quote\{margin:8px 0 0;text-align:center;/);
 });
 
 test("page has a light/dark toggle that sets the theme before first paint",()=>{
